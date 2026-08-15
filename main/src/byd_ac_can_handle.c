@@ -34,7 +34,12 @@ static void changeHex2(void) {
 static esp_err_t byd_status_frame_handle(twai_message_t *msg) {
     if (msg->data_length_code != 8)
         return ESP_OK;
-    ig2 = msg->data[4] == 0x0C;
+        
+    if ((msg->data[4] & 0x0C) == 0x0C) {
+        ig2 = true;
+    } else {
+        ig2 = false;
+    }
     return ESP_OK;
 }
 
