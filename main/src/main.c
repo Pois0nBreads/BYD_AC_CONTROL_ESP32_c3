@@ -197,6 +197,7 @@ void sendHeartPacket(void *arg)  {
 void twai_receive_task(void *arg) {
     byd_ac_state_t ac_state;
     twai_message_t msg;
+    uint8_t click[] = {0x55, 0xAA, 0x55, 0xAA};
     while (1) {
         ESP_ERROR_CHECK(twai_receive(&msg, portMAX_DELAY));
         if (msg.rtr != 0)
@@ -207,6 +208,21 @@ void twai_receive_task(void *arg) {
         // for (j = 0; j < msg.data_length_code; j++)
         //     printf("%02X ", msg.data[j]);
         // printf("\n");
+        
+        //方控按钮报文
+        //如果是方控模式短按报文，解析后上报给蓝牙
+        if (msg.identifier == 0x4A8 
+            && msg.data_length_code == 8 
+            && msg.data[0] == 0x01 
+            && msg.data[1] == 0x10) {
+            for (int i = 0; i < 4; i++) {
+                uint16_t cid = ble_multi_conn_get_conn_id_by_index(i);
+                if (cid != 0xFFFF) {
+                    ble_multi_conn_send_indicate(cid, click, sizeof(click));
+                }
+            }
+            return;
+        }
 
         byd_ac_can_handle(&msg, &ac_state);
         if (!ac_state.isAcFrame)
