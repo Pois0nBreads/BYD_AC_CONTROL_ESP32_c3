@@ -257,6 +257,26 @@ void byd_can_ac_fan_speed_down() {
     byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
 }
 
+//打开分区空调
+void byd_can_ac_area_open(void) {
+    // TODO: 发送分区空调打开报文
+    uint8_t data[8] = {
+        0x00, 0x00, 0x00, 0x00, 
+        0x00, 0x00, 0x00, 0x01, 
+    };
+    byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
+}
+
+//关闭分区空调
+void byd_can_ac_area_close(void) {
+    // TODO: 发送分区空调关闭报文
+    uint8_t data[8] = {
+        0x00, 0x00, 0x00, 0x00, 
+        0x00, 0x00, 0x00, 0x00, 
+    };
+    byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
+}
+
 //设置风向 BYD_AC_CONTROL_2_CAN_ID
 void byd_can_ac_fan_mode(uint8_t mode) {
     uint8_t data[8] = {

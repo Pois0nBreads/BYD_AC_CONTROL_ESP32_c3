@@ -33,6 +33,7 @@ typedef struct {
     uint8_t cycle_mode;     /**<循环模式*/
     bool defroster_open;    /**<后除雾器是否打开*/
     bool compressor_open;   /**<压缩机是否打开*/
+    bool area_open;         /**<分区空调是否打开*/
 } byd_ac_state_t;
 
 esp_err_t byd_ac_can_handle(twai_message_t *msg, byd_ac_state_t *info);

@@ -29,6 +29,8 @@
 #define BLE_AC_L_TEMP_DOWN              0x12 //左区温度减命令
 #define BLE_AC_R_TEMP_UP                0x13 //右区温度加命令
 #define BLE_AC_R_TEMP_DOWN              0x14 //右区温度减命令
+#define BLE_AC_AREA_OPEN                0x15 //分控打开
+#define BLE_AC_AREA_CLOSE               0x16 //分控关闭
 
 #define BLE_AC_FAN_SPEED_UP             0x21 //风速加命令
 #define BLE_AC_FAN_SPEED_DOWN           0x22 //风速减命令
@@ -99,6 +101,12 @@ static void on_ble_receive(uint16_t conn_id, const uint8_t *data, uint16_t len) 
             break;
         case BLE_AC_FAN_SPEED_DOWN:            //风速减命令
             byd_can_ac_fan_speed_down();
+            break;
+        case BLE_AC_AREA_OPEN:                 //分控打开命令
+            byd_can_ac_area_open();
+            break;
+        case BLE_AC_AREA_CLOSE:                //分控关闭命令
+            byd_can_ac_area_close();
             break;
         case BLE_AC_INTERNAL_CIRCULATION:      //内循环命令
             byd_can_ac_internal_cycle_mode();
@@ -214,6 +222,7 @@ void twai_receive_task(void *arg) {
             ac_state.cycle_mode,
             ac_state.defroster_open ? 0x01 : 0x00,
             ac_state.compressor_open ? 0x01 : 0x00,
+            ac_state.area_open ? 0x01 : 0x00,
         };
         for (int i = 0; i < 4; i++) {
             uint16_t cid = ble_multi_conn_get_conn_id_by_index(i);
