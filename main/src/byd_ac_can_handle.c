@@ -47,6 +47,7 @@ static esp_err_t byd_status_frame_handle(twai_message_t *msg) {
 static esp_err_t byd_ac_frame_handle(twai_message_t *msg, byd_ac_state_t *info) {
     if (msg->data_length_code != 8)
         return ESP_OK;
+    info->area_open =  (msg->data[3] & 0xF0) == 0x60; //判断分区空调
     info->left_temp = msg->data[4];
     info->right_temp = msg->data[5];
     fan_speed = (msg->data[2] >> 4) & 0x0F;
