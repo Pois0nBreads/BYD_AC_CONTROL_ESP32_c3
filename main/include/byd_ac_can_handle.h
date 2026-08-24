@@ -42,6 +42,8 @@ void byd_can_ac_left_temp_up(void);
 void byd_can_ac_left_temp_down(void);
 void byd_can_ac_right_temp_up(void);
 void byd_can_ac_right_temp_down(void);
+void byd_can_ac_area_open(void);
+void byd_can_ac_area_close(void);
 void byd_can_ac_fan_speed_up(void);
 void byd_can_ac_fan_speed_down(void);
 void byd_can_ac_defroster_open(void);
