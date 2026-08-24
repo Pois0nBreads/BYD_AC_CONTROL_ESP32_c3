@@ -249,14 +249,15 @@ static esp_err_t ble_init_controller_and_stack(uint8_t max_conn) {
 }
 
 static void setup_adv_data(void) {
+    esp_ble_gap_set_device_name("ESP32_AC_Controller");
     // 填充厂商数据：厂商ID + 负载
     manufacturer_data[0] = (MANUFACTURER_ID >> 8) & 0xFF;
     manufacturer_data[1] = MANUFACTURER_ID & 0xFF;
     // memcpy(manufacturer_data + 2, ble_adv_payload, ADV_DATA_LEN);
     esp_ble_adv_data_t adv_data = {
         .set_scan_rsp        = false,
-        .include_name        = false,      // 不广播设备名
-        .include_txpower     = false,
+        .include_name        = true,      // 广播设备名
+        .include_txpower     = true,
         .flag                = ESP_BLE_ADV_FLAG_GEN_DISC | ESP_BLE_ADV_FLAG_BREDR_NOT_SPT,          // 不广播Flags
         .manufacturer_len    = sizeof(manufacturer_data),
         .p_manufacturer_data = manufacturer_data,
