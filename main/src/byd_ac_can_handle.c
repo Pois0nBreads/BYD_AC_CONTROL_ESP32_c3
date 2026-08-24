@@ -262,9 +262,10 @@ void byd_can_ac_fan_speed_down() {
 void byd_can_ac_area_open(void) {
     // TODO: 发送分区空调打开报文
     uint8_t data[8] = {
-        0x00, 0x00, 0x00, 0x00, 
+        0x00, 0x08, 0x00, 0x00, 
         0x00, 0x00, 0x00, 0x01, 
     };
+    byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
     byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
 }
 
@@ -272,9 +273,10 @@ void byd_can_ac_area_open(void) {
 void byd_can_ac_area_close(void) {
     // TODO: 发送分区空调关闭报文
     uint8_t data[8] = {
-        0x00, 0x00, 0x00, 0x00, 
+        0x00, 0x04, 0x00, 0x00, 
         0x00, 0x00, 0x00, 0x00, 
     };
+    byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
     byd_ac_frame_send(BYD_AC_CONTROL_2_CAN_ID, data);
 }
 
