@@ -162,7 +162,7 @@ void byd_can_ac_left_temp_down(void) {
 void byd_can_ac_right_temp_up(void) {
     changeHex2();
     uint8_t data[8] = {
-        0xFF, 0x09, hex2, 0xFF, 
+        0xFF, 0x0B, hex2, 0xFF, 
         0xFF, 0xFF, 0xFF, 0x00,
     };
     byd_ac_frame_send(BYD_AC_CONTROL_1_CAN_ID, data);
@@ -172,7 +172,7 @@ void byd_can_ac_right_temp_up(void) {
 void byd_can_ac_right_temp_down(void) {
     changeHex2();
     uint8_t data[8] = {
-        0xFF, 0x0A, hex2, 0xFF, 
+        0xFF, 0x0C, hex2, 0xFF, 
         0xFF, 0xFF, 0xFF, 0x00,
     };
     byd_ac_frame_send(BYD_AC_CONTROL_1_CAN_ID, data);
